@@ -44,6 +44,9 @@ if [ ! -e "/sys/class/net/tun0" ]; then
   exit 1
 fi
 
+# 更改MTU（与 topsap 的默认值保持一致）
+ip link set dev tun0 mtu 1300
+
 # 添加NAT转发，使其他请求可以走正常出口，不全部走代理，例如公网请求
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 wait
