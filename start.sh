@@ -17,17 +17,21 @@ function cleanup {
 # 捕获 INT 信号，并调用 cleanup 函数
 trap cleanup INT
 
-sed -i "s/{{server_address}}/$SERVER_ADDRESS/g" expect.exp
-sed -i "s/{{user_name}}/$USER_NAME/g" expect.exp
-sed -i "s/{{password}}/$PASSWORD/g" expect.exp
+# sed -i "s/{{server_address}}/$SERVER_ADDRESS/g" expect.exp
+# sed -i "s/{{user_name}}/$USER_NAME/g" expect.exp
+# sed -i "s/{{password}}/$PASSWORD/g" expect.exp
 
 cd /opt/TopSAP && ./sv_websrv >/home/work/sv_websrv.log 2>&1 &
 
+sh ./start_autologin.sh &
+
 sleep 1
 
-expect -f expect.exp
+sh ./start_topsap_client.sh &
 
-for i in {1..3}; do
+# expect -f expect.exp
+
+for i in {1..100}; do
   if [ -e "/sys/class/net/tun0" ]; then
     # 如果设备存在，跳出循环
     danted -f /etc/danted.conf &
