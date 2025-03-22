@@ -15,6 +15,11 @@
 
 5. 注意⚠️：docker 参数中的 -it 命令一定要加，因为 expect 命令需要在终端中才能正常执行，需要 docker 分配一个伪终端给 expect 用才能正常登录，否则会卡在输入密码的地方。
 
+6. 带验证码的版本
+
+`docker run  -d -it --device /dev/net/tun --cap-add NET_ADMIN -p 127.0.0.1:1088:1080 --name topsap --mount type=bind,src=./env.ini,dst=/home/work/TopSAP_Client-main/env.ini topsap
+`
+
 ## 环境变量
 
 - `USER_NAME`：用户名，TopSAP登录用户名
