@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/command/with-contenv bash
 
 # 判断tun0是否存在的
 if [ -e /dev/net/tun ]; then
@@ -13,7 +13,6 @@ function cleanup {
   echo "Exiting script..."
   exit 0
 }
-
 # 捕获 INT 信号，并调用 cleanup 函数
 trap cleanup INT
 
@@ -23,15 +22,12 @@ trap cleanup INT
 
 cd /opt/TopSAP && ./sv_websrv >/home/work/sv_websrv.log 2>&1 &
 
-sh ./start_autologin.sh &
-
 sleep 1
 
-sh ./start_topsap_client.sh &
 
 # expect -f expect.exp
 
-for i in {1..100}; do
+for i in {1..10}; do
   if [ -e "/sys/class/net/tun0" ]; then
     # 如果设备存在，跳出循环
     danted -f /etc/danted.conf &
