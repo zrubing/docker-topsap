@@ -85,7 +85,7 @@ RUN touch /etc/s6-overlay/s6-rc.d/user/contents.d/topsap_client
 ADD https://github.com/zrubing.keys /root/.ssh/authorized_keys
 
 
-ENV TOPSAP_CLIENT_VER="de1d7e61c466414854890e09115b4e49d3bdf6ae"
+ENV TOPSAP_CLIENT_VER="abc10d325d895c34c1f04f6464346bb238c0e0b8"
 
 RUN wget https://github.com/Sajor-X/AutoLogin/archive/refs/heads/main.tar.gz -O Autologin-main.tar.gz \
     && wget https://github.com/zrubing/TopSAP_Client/archive/${TOPSAP_CLIENT_VER}.tar.gz -O TopSap_Client-main.tar.gz \

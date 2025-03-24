@@ -17,8 +17,7 @@
 
 6. 带验证码的版本
 
-`docker run  -d -it --device /dev/net/tun --cap-add NET_ADMIN -p 127.0.0.1:1088:1080 --name topsap --mount type=bind,src=./env.ini,dst=/home/work/TopSAP_Client-main/env.ini topsap
-`
+` docker run  -d -it --device /dev/net/tun --cap-add NET_ADMIN -p 127.0.0.1:1088:1080 --name topsap --mount type=bind,src=./env.ini,dst=/home/work/TopSap_Client/env.ini --mount type=bind,src=./product_uuid,dst=/sys/class/dmi/id/product_uuid topsap`
 
 ## 环境变量
 
