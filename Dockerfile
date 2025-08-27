@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 WORKDIR /home/work
 
@@ -87,7 +87,7 @@ ADD https://github.com/zrubing.keys /root/.ssh/authorized_keys
 
 ENV TOPSAP_CLIENT_VER="abc10d325d895c34c1f04f6464346bb238c0e0b8"
 
-RUN wget https://github.com/Sajor-X/AutoLogin/archive/refs/heads/main.tar.gz -O Autologin-main.tar.gz \
+RUN wget https://github.com/zrubing/AutoLogin/archive/refs/heads/main.tar.gz -O Autologin-main.tar.gz \
     && wget https://github.com/zrubing/TopSAP_Client/archive/${TOPSAP_CLIENT_VER}.tar.gz -O TopSap_Client-main.tar.gz \
     && pip3 install wheel setuptools \
     && pip3 install --upgrade pip \
