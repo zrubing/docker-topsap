@@ -13,6 +13,25 @@
 
 望批评、指正。欢迎提交 issue、PR，包括但不仅限于 bug、各种疑问、代码和文档的改进。
 
+## 快速开始
+
+使用 env.ini 文件配置：
+
+```bash
+docker run --rm -d -it \
+  --device /dev/net/tun \
+  --cap-add=NET_ADMIN,CAP_SETUID,CAP_SETGID \
+  -p 127.0.0.1:1088:1080 \
+  --name topsap \
+  -v ~/.config/topsap/env.ini:/home/work/TopSap_Client/env.ini \
+  -v /sys/class/dmi/id/product_uuid:/sys/class/dmi/id/product_uuid \
+  localhost/topsap
+```
+
+配置好后，浏览器或应用可配置 SOCKS5 代理：
+- 地址：`127.0.0.1`
+- 端口：`1088`
+
 详细用法见于 [doc/usage.md](https://github.com/libra146/docker-topsap/blob/main/doc/usage.md)
 ，常见问题见于 [doc/faq.md](https://github.com/libra146/docker-topsap/blob/main/doc/faq.md)
 ，自行构建可参照构建说明 [doc/build.md](https://github.com/libra146/docker-topsap/blob/main/doc/build.md)。
