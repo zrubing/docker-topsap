@@ -105,6 +105,17 @@ RUN set -eux; \
     rm -f "$debfile"; \
     rm -rf /tmp/deb-extract /tmp/dpkg-info; \
     \
+    # 从 TopSAP .bin 文件中提取 sv_websrv 及相关依赖
+    /opt/TopSAP/TopSAP-*.bin --target /tmp/topsamp-extract --noexec 2>/dev/null || true; \
+    cp -f /tmp/topsamp-extract/common/sv_websrv /opt/TopSAP/; \
+    cp -f /tmp/topsamp-extract/common/libvpn_client.so /opt/TopSAP/; \
+    cp -f /tmp/topsamp-extract/common/libes_3000gm.so.1.0.0 /opt/TopSAP/; \
+    cp -f /tmp/topsamp-extract/common/libgm3000.1.0.so /opt/TopSAP/; \
+    chmod +x /opt/TopSAP/sv_websrv; \
+    # 设置库路径
+    echo "/opt/TopSAP" > /etc/ld.so.conf.d/topsap.conf; \
+    ldconfig; \
+    rm -rf /tmp/topsamp-extract; \
     rm -rf /var/lib/apt/lists/*
 
 # 安装 s6-overlay（按架构选择）
@@ -119,7 +130,6 @@ RUN set -eux; \
       "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz"; \
     curl -fsSL -o /tmp/s6-overlay-arch.tar.xz \
       "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${s6arch}.tar.xz"; \
-    # 使用 --overwrite 直接解压，让 tar 自己处理目录创建
     tar -C / --no-same-owner --no-same-permissions --overwrite -xJf /tmp/s6-overlay-noarch.tar.xz; \
     tar -C / --no-same-owner --no-same-permissions --overwrite -xJf /tmp/s6-overlay-arch.tar.xz; \
     rm -f /tmp/s6-overlay-noarch.tar.xz /tmp/s6-overlay-arch.tar.xz
